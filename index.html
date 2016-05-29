@@ -2,8 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>eZdravje :: 4. DN :: OIS 2015/2016</title>
+  <title>Diabetes mellitu</title>
   <link href="knjiznice/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href=knjiznice/css/stili.css type="text/css" />
   <style>
     body {padding-top: 70px;}
   </style>
@@ -22,7 +23,7 @@
           <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
         </button>
         <!-- ZAČETEK: Ime vaše aplikacije -->
-        <a class="navbar-brand" href="index.html">{ime vaše aplikacije}</a>
+        <a class="navbar-brand" href="index.html">Diabetes mellitus</a>
         <!-- KONEC: Ime vaše aplikacije -->
       </div>
       <div class="collapse navbar-collapse" id="menujska-vrstica">
@@ -38,10 +39,168 @@
 
   <!-- ZAČETEK: Vsebina aplikacije -->
   <div class="container">
+    
+    
     <div class="row">
       <div class="col-lg-12 text-center">
-        <p class="lead"><strong>TO-DO</strong>: Na tem mestu implementirajte vašo aplikacijo.</p>
+        <a href="https://en.wikipedia.org/wiki/Diabetes_mellitus" target="_blank"><h1><strong>Diabetes mellitus:</strong></h1></a>
       </div>
+      
+      <div class="col-lg-12 text-center">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title"><strong>Registracija novega uporabnika</strong></h3>
+          </div>
+          <div class="panel-body">
+            <form id="input1">
+              <div class="row">
+                <div class="col-sm-3">
+                  <span>Ime: </span><input id="inIme" placeholder="Janez" type="text" name="Ime"/>
+                </div>
+                <div class="col-sm-3">
+                  <span>Priimek: </span><input id="inPriimek" placeholder="Novak" type="text" name="Priimek"/>
+                </div>
+                <div class="col-sm-4">
+                  <span>Datum rojstva: </span><input id="inRojstvo" placeholder="1994-11-27T12:45" type="text" name="Rojstvo"/>
+                </div>
+                <div class="col-sm-2">
+                  <input id="gumbRegistracija" type="submit" value="Registracija"/>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm">
+                  <span id="EHRID"><strong>EHR ID: </strong> -</span>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-12 text-center">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title"><strong>Poizvedovanje z EHR ID po uporbnikih</strong></h3>
+          </div>
+          <div class="panel-body">
+            <form>
+              <div class="row">
+                <div class="col-sm-5">
+                  <span>EHR ID: </span><input id="inEHRID1" size="36" placeholder="7b661e12-3a98-21ad-c29e-2dc9f5a3d885" type="text" name=""/>
+                </div>
+                <div class="col-sm-6">
+                   <table border="1" width="100%">
+                     <tr>
+                       <td>Ime: </td>
+                       <td>----</td>
+                     </tr>
+                     <tr>
+                       <td>Priimek: </td>
+                       <td>----</td>
+                     </tr>
+                     <tr>
+                       <td>Datum rojstva: </td>
+                       <td>----</td>
+                     </tr>
+                   </table>
+                 </div>
+                 <div class="col-sm-1">
+                  <input type="submit" name="Poizvedba" value="Poišči"/>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-12 text-center">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title"><strong>Nov EHR zapis</strong></h3>
+          </div>
+          <div class="panel-body">
+            <div class="row">
+              <div class="col-sm-5">
+                <span>EHR ID: </span><input id="inEHRID2" size="36" placeholder="254f791d-2e7c-49d9-b646-376f62d6ead5" type="text" name="EHR ID"/>
+              </div>
+              <div class="col-sm-5">
+                <span>Datum in ura: </span><input id="inDatum" placeholder="2016-12-27T8:45" type="text" name="Datum"/>
+              </div>
+              <div class="col-sm-2">
+                <input type="submit" name="inZapis" value="Dodaj zapis"/>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-4">
+                <span>Sistolični krvni tlak: </span><input type="text" name="inSTlak" placeholder="118"/>
+              </div>
+              <div class="col-sm-4">
+                <span>Diastolični krvni tlak: </span><input type="text" name="inDTlak" placeholder="98"/>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-4">
+                <span>Telesna temperatura: </span><input type="text" name="inTemperatura" placeholder="37.6"/>
+              </div>
+              <div class="col-sm-4">
+                <span>Telesna teža: </span><input type="text" name="inTeza" placeholder="75.5"/>
+              </div>
+              <div class="col-sm-4">
+                <span>Krvni sladkor: </span><input type="text" name="inSladkor" placeholder="13.1"/>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-12 text-center">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title"><strong>Poizvedovanje z EHR ID po zapisih</strong></h3>
+          </div>
+          <form>
+              <div class="row">
+                <div class="col-sm-6">
+                  <span>EHR ID: </span><input id="inEHRID1" size="36" placeholder="7b661e12-3a98-21ad-c29e-2dc9f5a3d885" type="text" name=""/>
+                </div>
+                <div class="col-sm-6">
+                  <input type="submit" name="Poizvedba" value="Poišči zapis"/>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-12">
+                  <table border="1" width="100%">
+                     <tr>
+                       <td><strong>Datum in ura</strong></td>
+                       <td><strong>Telesna teža</strong></td>
+                       <td><strong>Sistolični krvni tlak</strong></td>
+                       <td><strong>Diastolični krvni tlak</strong></td>
+                       <td><strong>Telesna temperatura</strong></td>
+                       <td><strong>Krvni sladkor</strong></td>
+                     </tr>
+                     <tr>
+                       <td>1994-11-27T8:50</td>
+                       <td>75 kg</td>
+                       <td>116 mm/Hg</td>
+                       <td>98 mm/Hg</td>
+                       <td>37 °C</td>
+                       <td>12.4 mMol/mm</td>
+                     </tr>
+                     <tr>
+                       <td>2016-1-12T18:15</td>
+                       <td>85 kg</td>
+                       <td>130 mm/Hg</td>
+                       <td>102 mm/Hg</td>
+                       <td>41 °C</td>
+                       <td>7.4 mMol/mm</td>
+                     </tr>
+                  </table>
+                </div>
+              </div>
+            </form>
+        </div>
+      </div>
+      
     </div>
   </div>
   <!-- KONEC: Vsebina aplikacije -->
