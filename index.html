@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Diabetes mellitu</title>
+  <title>Zdravstvena ordinacija</title>
   <link href="knjiznice/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href=knjiznice/css/stili.css type="text/css" />
   <style>
@@ -23,7 +23,7 @@
           <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
         </button>
         <!-- ZAČETEK: Ime vaše aplikacije -->
-        <a class="navbar-brand" href="index.html">Diabetes mellitus</a>
+        <a class="navbar-brand" href="index.html">Zdravstvena ordinacija</a>
         <!-- KONEC: Ime vaše aplikacije -->
       </div>
       <div class="collapse navbar-collapse" id="menujska-vrstica">
@@ -43,7 +43,7 @@
     
     <div class="row">
       <div class="col-lg-12 text-center">
-        <a href="https://en.wikipedia.org/wiki/Diabetes_mellitus" target="_blank"><h1><strong>Diabetes mellitus:</strong></h1></a>
+        <a href="https://en.wikipedia.org/wiki/Diabetes_mellitus" target="_blank"><h1><strong>Zdravstvena ordinacija:</strong></h1></a>
       </div>
       
       <div class="col-lg-12 text-center">
@@ -64,13 +64,16 @@
                   <span>Datum rojstva: </span><input id="inRojstvo" placeholder="1994-11-27T12:45" type="text" name="Rojstvo"/>
                 </div>
                 <div class="col-sm-2">
-                  <input id="gumbRegistracija" type="submit" value="Registracija"/>
+                  <button id="gumbRegistracija" onclick="klikNaGumbRegistracija()" type="button" />Registracija</buttonn>
                 </div>
               </div>
               <div class="row">
                 <div class="col-sm">
                   <span id="EHRID"><strong>EHR ID: </strong> -</span>
                 </div>
+              </div>
+              <div class="row">
+                <div id="error1" class="error"></div>
               </div>
             </form>
           </div>
@@ -92,21 +95,24 @@
                    <table border="1" width="100%">
                      <tr>
                        <td>Ime: </td>
-                       <td>----</td>
+                       <td id="outIme">----</td>
                      </tr>
                      <tr>
                        <td>Priimek: </td>
-                       <td>----</td>
+                       <td id="outPriimek">----</td>
                      </tr>
                      <tr>
                        <td>Datum rojstva: </td>
-                       <td>----</td>
+                       <td id="outRojstvo">----</td>
                      </tr>
                    </table>
                  </div>
                  <div class="col-sm-1">
-                  <input type="submit" name="Poizvedba" value="Poišči"/>
+                  <button type="button" onclick="klikNaGumbPoisci()" name="Poizvedba"/>Poišči</button>
                 </div>
+              </div>
+              <div class="row">
+                <div id="error2" class="error"></div>
               </div>
             </form>
           </div>
@@ -127,28 +133,56 @@
                 <span>Datum in ura: </span><input id="inDatum" placeholder="2016-12-27T8:45" type="text" name="Datum"/>
               </div>
               <div class="col-sm-2">
-                <input type="submit" name="inZapis" value="Dodaj zapis"/>
+                <button type="button" id="dodajZapis" onclick="klikNaGumbDodajZapis()"/>Dodaj zapis</button>
               </div>
             </div>
             <div class="row">
               <div class="col-sm-4">
-                <span>Sistolični krvni tlak: </span><input type="text" name="inSTlak" placeholder="118"/>
+                <span>Sistolični krvni tlak: </span><input type="text" id="inSTlak" placeholder="118"/>
               </div>
               <div class="col-sm-4">
-                <span>Diastolični krvni tlak: </span><input type="text" name="inDTlak" placeholder="98"/>
+                <span>Diastolični krvni tlak: </span><input type="text" id="inDTlak" placeholder="98"/>
+              </div>
+              <div class="col-sm-4">
+                <span>Krvni sladkor: </span><input type="text" id="inSladkor" placeholder="13.1"/>
               </div>
             </div>
             <div class="row">
               <div class="col-sm-4">
-                <span>Telesna temperatura: </span><input type="text" name="inTemperatura" placeholder="37.6"/>
+                <span>Telesna temperatura: </span><input type="text" id="inTemperatura" placeholder="37.6"/>
               </div>
               <div class="col-sm-4">
-                <span>Telesna teža: </span><input type="text" name="inTeza" placeholder="75.5"/>
+                <span>Telesna teža: </span><input type="text" id="inTeza" placeholder="75.5"/>
               </div>
               <div class="col-sm-4">
-                <span>Krvni sladkor: </span><input type="text" name="inSladkor" placeholder="13.1"/>
+                <span>Zdravnik: </span><input type="text" id="inMerilec" placeholder="Dr. Dre"/>
               </div>
             </div>
+            <div class="row">
+                <div id="error3" class="error"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-12 text-center">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title"><strong>Neka zunaja funkcionalnost</strong></h3>
+          </div>
+          <div class="panel-body">
+            
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-12 text-center">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title"><strong>Grafični prikaz podatkov</strong></h3>
+          </div>
+          <div class="panel-body">
+            
           </div>
         </div>
       </div>
@@ -161,39 +195,31 @@
           <form>
               <div class="row">
                 <div class="col-sm-6">
-                  <span>EHR ID: </span><input id="inEHRID1" size="36" placeholder="7b661e12-3a98-21ad-c29e-2dc9f5a3d885" type="text" name=""/>
+                  <span>EHR ID: </span><input id="inEHRID3" size="36" placeholder="7b661e12-3a98-21ad-c29e-2dc9f5a3d885" type="text" name=""/>
                 </div>
                 <div class="col-sm-6">
-                  <input type="submit" name="Poizvedba" value="Poišči zapis"/>
+                  <button type="button" onclick="klikNaGumbPoisciZapis()" id="Poizvedba"/>Poišči zapis</button>
                 </div>
               </div>
               <div class="row">
+                <div class = "col-sm-12">
+                  <form id="formRadio">
+                    <input id="radio0" type="radio" name="tip">Sistolični krvni tlak</input>
+                    <input id="radio1" type="radio" name="tip">Diastolični krvni tlak</input>
+                    <input id="radio2" type="radio" name="tip">Krvni sladkor</input>
+                    <input id="radio3" type="radio" name="tip">Telesna temperatura</input>
+                    <input id="radio4" type="radio" name="tip">Telesna teža</input>
+                    <input id="radio5" type="radio" name="tip">Zdravnik</input>
+                    </form>
+                </div>
+              </div>
+              <div class="row">
+                <div id="error4" class="error"></div>
                 <div class="col-sm-12">
-                  <table border="1" width="100%">
-                     <tr>
-                       <td><strong>Datum in ura</strong></td>
-                       <td><strong>Telesna teža</strong></td>
-                       <td><strong>Sistolični krvni tlak</strong></td>
-                       <td><strong>Diastolični krvni tlak</strong></td>
-                       <td><strong>Telesna temperatura</strong></td>
-                       <td><strong>Krvni sladkor</strong></td>
-                     </tr>
-                     <tr>
-                       <td>1994-11-27T8:50</td>
-                       <td>75 kg</td>
-                       <td>116 mm/Hg</td>
-                       <td>98 mm/Hg</td>
-                       <td>37 °C</td>
-                       <td>12.4 mMol/mm</td>
-                     </tr>
-                     <tr>
-                       <td>2016-1-12T18:15</td>
-                       <td>85 kg</td>
-                       <td>130 mm/Hg</td>
-                       <td>102 mm/Hg</td>
-                       <td>41 °C</td>
-                       <td>7.4 mMol/mm</td>
-                     </tr>
+                  <table id="tableEHR" border="1" width="100%">
+                    
+                    
+                    
                   </table>
                 </div>
               </div>
