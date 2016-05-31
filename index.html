@@ -138,21 +138,21 @@
             </div>
             <div class="row">
               <div class="col-sm-4">
-                <span>Sistolični krvni tlak: </span><input type="text" id="inSTlak" placeholder="118"/>
+                <span>Sistolični krvni tlak: </span><input type="text" id="inSTlak" placeholder="118 (mm Hg)"/>
               </div>
               <div class="col-sm-4">
-                <span>Diastolični krvni tlak: </span><input type="text" id="inDTlak" placeholder="98"/>
+                <span>Diastolični krvni tlak: </span><input type="text" id="inDTlak" placeholder="98 (mm Hg)"/>
               </div>
               <div class="col-sm-4">
-                <span>Krvni sladkor: </span><input type="text" id="inSladkor" placeholder="13.1"/>
+                <span>Krvni sladkor: </span><input type="text" id="inSladkor" placeholder="13.1 (mmol/l)"/>
               </div>
             </div>
             <div class="row">
               <div class="col-sm-4">
-                <span>Telesna temperatura: </span><input type="text" id="inTemperatura" placeholder="37.6"/>
+                <span>Telesna temperatura: </span><input type="text" id="inTemperatura" placeholder="37.6 (°C)"/>
               </div>
               <div class="col-sm-4">
-                <span>Telesna teža: </span><input type="text" id="inTeza" placeholder="75.5"/>
+                <span>Telesna teža: </span><input type="text" id="inTeza" placeholder="75.5 (kg)"/>
               </div>
               <div class="col-sm-4">
                 <span>Zdravnik: </span><input type="text" id="inMerilec" placeholder="Dr. Dre"/>
@@ -160,6 +160,32 @@
             </div>
             <div class="row">
                 <div id="error3" class="error"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-12 text-center">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title"><strong>Generiranje testnih pacientov</strong></h3>
+          </div>
+          <div class="panel-body">
+            <div class="row">
+              <div id="auto1" class="col-lg-4">
+                --
+              </div>
+              <div id="auto2" class="col-lg-4">
+                --
+              </div>
+              <div id="auto3" class="col-lg-4">
+                --
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-12">
+                <button type="button" onclick="klikNaGumbGeneriraj()">Generiraj</button>
+              </div>
             </div>
           </div>
         </div>
@@ -209,7 +235,6 @@
                     <input id="radio2" type="radio" name="tip">Krvni sladkor</input>
                     <input id="radio3" type="radio" name="tip">Telesna temperatura</input>
                     <input id="radio4" type="radio" name="tip">Telesna teža</input>
-                    <input id="radio5" type="radio" name="tip">Zdravnik</input>
                     </form>
                 </div>
               </div>

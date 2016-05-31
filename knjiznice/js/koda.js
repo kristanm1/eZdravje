@@ -27,7 +27,7 @@ function klikNaGumbRegistracija() {
     var priimek = document.getElementById("inPriimek").value;
     var rojstvo = document.getElementById("inRojstvo").value;
     
-    //console.log("REGISTRACIJA:");
+    console.log("REGISTRACIJA:");
     
     if(ime && priimek && rojstvo) {
         //console.log(ime);
@@ -212,16 +212,70 @@ function klikNaGumbPoisciZapis() {
 				
 				if(tmp == 0) {
 					$.ajax({
-	  				    url: baseUrl + "/view/" + ehrId + "/" + "weight",
+	  				    url: baseUrl + "/view/" + ehrId + "/" + "blood_pressure",
 					    type: 'GET',
 					    headers: {"Ehr-Session": sessionId},
 					    success: function (res) {
 				    	    var result = "";
 				    	    if(res.length > 0) {
 				    	        for(var i in res) {
-				    	            result += "<tr><td>"+res[i].time+"</td><td>"+res[i].weight+"</td></tr>"
+				    	            result += "<tr><td id='time'>"+res[i].time+"</td><td id='data'>"+res[i].systolic+" "+res[i].unit+"</td></tr>"
+				    	            console.log(res[i]);
 				    	        }
 				    	        document.getElementById("tableEHR").innerHTML = document.getElementById("tableEHR").innerHTML + result;
+				    	    }
+				    	    else {
+				    	    	document.getElementById("tableEHR").innerHTML = document.getElementById("tableEHR").innerHTML + "<tr><td>No records</td></tr>"
+				    	    }
+					    },
+					    error: function() {
+					    	document.getElementById("error4").innerHTML = "Prišlo je do napake.";
+	                        document.getElementById("error4").style.color = "red";
+					    }
+					});
+				}
+				
+				if(tmp == 1) {
+					$.ajax({
+	  				    url: baseUrl + "/view/" + ehrId + "/" + "blood_pressure",
+					    type: 'GET',
+					    headers: {"Ehr-Session": sessionId},
+					    success: function (res) {
+				    	    var result = "";
+				    	    if(res.length > 0) {
+				    	        for(var i in res) {
+				    	            result += "<tr><td>"+res[i].time+"</td><td>"+res[i].diastolic+" "+res[i].unit+"</td></tr>"
+				    	            console.log(res[i]);
+				    	        }
+				    	        document.getElementById("tableEHR").innerHTML = document.getElementById("tableEHR").innerHTML + result;
+				    	    }
+				    	    else {
+				    	    	document.getElementById("tableEHR").innerHTML = document.getElementById("tableEHR").innerHTML + "<tr><td>No records</td></tr>"
+				    	    }
+					    },
+					    error: function() {
+					    	document.getElementById("error4").innerHTML = "Prišlo je do napake.";
+	                        document.getElementById("error4").style.color = "red";
+					    }
+					});
+				}
+				
+				if(tmp == 2) {
+					$.ajax({
+	  				    url: baseUrl + "/view/" + ehrId + "/" + "height",
+					    type: 'GET',
+					    headers: {"Ehr-Session": sessionId},
+					    success: function (res) {
+				    	    var result = "";
+				    	    if(res.length > 0) {
+				    	        for(var i in res) {
+				    	            result += "<tr><td>"+res[i].time+"</td><td>"+res[i].height+" mmol/l</td></tr>"
+				    	            console.log(res[i]);
+				    	        }
+				    	        document.getElementById("tableEHR").innerHTML = document.getElementById("tableEHR").innerHTML + result;
+				    	    }
+				    	    else {
+				    	    	document.getElementById("tableEHR").innerHTML = document.getElementById("tableEHR").innerHTML + "<tr><td>No records</td></tr>"
 				    	    }
 					    },
 					    error: function() {
@@ -290,6 +344,13 @@ function klikNaGumbPoisciZapis() {
     
 }
 
+function klikNaGumbGeneriraj() {
+	document.getElementById("auto1").innerHTML = generirajPodatke("1");
+	document.getElementById("auto2").innerHTML = generirajPodatke("1");
+	document.getElementById("auto3").innerHTML = generirajPodatke("1");
+}
+
+
 function startPage(input) {
 	var table = document.getElementById("tableEHR");
     switch (input) {
@@ -307,9 +368,6 @@ function startPage(input) {
     		break;
     	case '4':
     		table.innerHTML = "<tr><th><strong>Datum:</strong></th><th><strong>Telesna teža:</strong></th></tr>";
-    		break;
-    	case '5':
-    		table.innerHTML = "<tr><th><strong>Datum:</strong></th><th><strong>Zdravnik:</strong></th></tr>";
     		break;
     	default:
     		return;
@@ -338,7 +396,29 @@ function getRadioButton() {
 function generirajPodatke(stPacienta) {
   ehrId = "";
 
-  // TODO: Potrebno implementirati
+  var ime;
+  var priimek;
+  var datumRojstva;
+  
+  switch (stPacienta) {
+  	case '1':
+  		ime = "Mojca"
+  		priimek = "Pokraculja";
+  		datumRojstva = "1889-4-30";
+  		break;
+  	case '2':
+  		ime = "Josip";
+  		priimek = "Broz";
+  		datumRojstva = "1892-5-7";
+  		break;
+  	case '3':
+  		ime = "";
+  		priimek = "";
+  		datumRojstva = "";
+  		break;
+  	default:
+  		// code
+  }
 
   return ehrId;
 }
