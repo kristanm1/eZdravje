@@ -6,7 +6,8 @@
   <link href="knjiznice/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href=knjiznice/css/stili.css type="text/css" />
   <style>
-    body {padding-top: 70px;}
+    body { padding-top: 70px; }
+    .label { margin-bottom: 10px; display: inline-block; }
   </style>
   <script src="knjiznice/js/jquery-2.2.3.min.js"></script>
   <script src="knjiznice/js/bootstrap.min.js"></script>
@@ -31,7 +32,7 @@
         <ul class="nav navbar-nav">
           <li><a href="opis.html">Opis ideje</a></li>
           <li><a href="nacrt.html">Načrt informacijske rešitve</a></li>
-          <li><a href="#">Generiranje podatkov</a></li>
+          <li><a onclick="klikNaGumbGeneriraj()">Generiranje podatkov</a></li>
         </ul>
       </div>
     </div>
@@ -40,239 +41,350 @@
 
   <!-- ZAČETEK: Vsebina aplikacije -->
   <div class="container">
-    
-    
+
+
     <div class="row">
-      <div class="col-lg-12 text-center">
-        <a href="https://en.wikipedia.org/wiki/Diabetes_mellitus" target="_blank"><h1><strong>Zdravstvena ordinacija:</strong></h1></a>
-      </div>
-      
-      <div class="col-lg-12 text-center">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h3 class="panel-title"><strong>Registracija novega uporabnika</strong></h3>
+      <div class="col-lg-12">
+
+          <div class="well" style="background-image: url('./ambulance.png'); background-repeat: no-repeat; backgorund-size: cover;">
+            <h1><a href="https://en.wikipedia.org/wiki/Diabetes_mellitus" target="_blank">Zdravstvena ordinacija</a></h1>
+            <p>Kratek opis aplikacije</p>
           </div>
+      </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-lg-12">
+          <div class="panel panel-primary">
+            <div class="panel-heading">
+                  <div class="row">
+                      <div class="col-lg-8 col-md-6 col-xs-6">
+                          <strong>Poizvedovanje z EHR ID po uporabnikih</strong>
+                      </div>
+                      <div class="col-lg-4 col-md-6 col-xs-6 text-right">
+                          <input type="button" onclick="klikNaGumbPoisci()" name="Poizvedba" class="btn btn-primary btn-xs" value="Poišči" />
+                      </div>
+                  </div>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-xs-12" style="margin-bottom: 20px;">
+                        <span class="label label-info">EHR ID:</span><br>
+                        <input id="inEHRID1" placeholder="7b661e12-3a98-21ad-c29e-2dc9f5a3d885" type="text" class="form-control input-mini" />
+                    </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-12 col-md-12 col-xs-12">
+                     <table width="100%" class="table">
+                       <tr>
+                         <td>Ime: </td>
+                         <td id="outIme">----</td>
+                       </tr>
+                       <tr>
+                         <td>Priimek: </td>
+                         <td id="outPriimek">----</td>
+                       </tr>
+                       <tr>
+                         <td>Datum rojstva: </td>
+                         <td id="outRojstvo">----</td>
+                       </tr>
+                     </table>
+                   </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12" style="margin: 5px 0;">
+                        <div id="error2" class="error"></div>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-12">
+
+        <div class="panel panel-info">
+          <div class="panel-heading">
+              <div class="row">
+                  <div class="col-lg-8 col-md-6 col-xs-6">
+                      <strong>Registracija novega uporabnika</strong>
+                  </div>
+                  <div class="col-lg-4 col-md-6 col-xs-6 text-right">
+                      <input class="btn btn-primary btn-xs" id="gumbRegistracija" onclick="klikNaGumbRegistracija()" type="button" value="Registracija" />
+                  </div>
+              </div>
+          </div>
+
           <div class="panel-body">
             <form id="input1">
+
               <div class="row">
-                <div class="col-sm-3">
-                  <span>Ime: </span><input id="inIme" placeholder="Janez" type="text" name="Ime"/>
+                <div class="col-lg-4 col-md-4 col-xs-12">
+                  <span class="label label-info">Ime:</span><br>
+                  <input id="inIme" placeholder="Janez" type="text" name="Ime" class="form-control input-mini" />
                 </div>
-                <div class="col-sm-3">
-                  <span>Priimek: </span><input id="inPriimek" placeholder="Novak" type="text" name="Priimek"/>
+                <div class="col-lg-4 col-md-4 col-xs-12">
+                  <span class="label label-info">Priimek:</span><br>
+                  <input id="inPriimek" placeholder="Novak" type="text" name="Priimek" class="form-control input-mini" />
                 </div>
-                <div class="col-sm-4">
-                  <span>Datum rojstva: </span><input id="inRojstvo" placeholder="1994-11-27T12:45" type="text" name="Rojstvo"/>
-                </div>
-                <div class="col-sm-2">
-                  <button id="gumbRegistracija" onclick="klikNaGumbRegistracija()" type="button" />Registracija</buttonn>
+                <div class="col-lg-4 col-md-4 col-xs-12">
+                  <span class="label label-info">Datum rojstva:</span><br>
+                  <input id="inRojstvo" placeholder="1994-11-27T12:45" type="text" name="Rojstvo" class="form-control input-mini" />
                 </div>
               </div>
+
               <div class="row">
-                <div class="col-sm">
+                <div class="col-lg-12" style="margin: 10px 0;">
                   <span id="EHRID"><strong>EHR ID: </strong> -</span>
                 </div>
               </div>
+
               <div class="row">
-                <div id="error1" class="error"></div>
+                  <div class="col-lg-12" style="margin: 5px 0;">
+                      <div id="error1" class="error"></div>
+                  </div>
               </div>
+
             </form>
           </div>
         </div>
+
       </div>
-      
-      <div class="col-lg-12 text-center">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h3 class="panel-title"><strong>Poizvedovanje z EHR ID po uporbnikih</strong></h3>
-          </div>
-          <div class="panel-body">
-            <form>
-              <div class="row">
-                <div class="col-sm-5">
-                  <span>EHR ID: </span><input id="inEHRID1" size="36" placeholder="7b661e12-3a98-21ad-c29e-2dc9f5a3d885" type="text" name=""/>
-                </div>
-                <div class="col-sm-6">
-                   <table border="1" width="100%">
-                     <tr>
-                       <td>Ime: </td>
-                       <td id="outIme">----</td>
-                     </tr>
-                     <tr>
-                       <td>Priimek: </td>
-                       <td id="outPriimek">----</td>
-                     </tr>
-                     <tr>
-                       <td>Datum rojstva: </td>
-                       <td id="outRojstvo">----</td>
-                     </tr>
-                   </table>
-                 </div>
-                 <div class="col-sm-1">
-                  <button type="button" onclick="klikNaGumbPoisci()" name="Poizvedba"/>Poišči</button>
-                </div>
-              </div>
-              <div class="row">
-                <div id="error2" class="error"></div>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-      
-      <div class="col-lg-12 text-center">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h3 class="panel-title"><strong>Nov EHR zapis</strong></h3>
-          </div>
-          <div class="panel-body">
-            <div class="row">
-              <div class="col-sm-5">
-                <span>EHR ID: </span><input id="inEHRID2" size="36" placeholder="254f791d-2e7c-49d9-b646-376f62d6ead5" type="text" name="EHR ID"/>
-              </div>
-              <div class="col-sm-5">
-                <span>Datum in ura: </span><input id="inDatum" placeholder="2016-12-27T8:45" type="text" name="Datum"/>
-              </div>
-              <div class="col-sm-2">
-                <button type="button" id="dodajZapis" onclick="klikNaGumbDodajZapis()"/>Dodaj zapis</button>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-sm-4">
-                <span>Sistolični krvni tlak: </span><input type="text" id="inSTlak" placeholder="118 (mm Hg)"/>
-              </div>
-              <div class="col-sm-4">
-                <span>Diastolični krvni tlak: </span><input type="text" id="inDTlak" placeholder="98 (mm Hg)"/>
-              </div>
-              <div class="col-sm-4">
-                <span>Telesna višina: </span><input type="text" id="inSladkor" placeholder="175.5 (cm)"/>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-sm-4">
-                <span>Telesna temperatura: </span><input type="text" id="inTemperatura" placeholder="37.6 (°C)"/>
-              </div>
-              <div class="col-sm-4">
-                <span>Telesna teža: </span><input type="text" id="inTeza" placeholder="75.5 (kg)"/>
-              </div>
-              <div class="col-sm-4">
-                <span>Zdravnik: </span><input type="text" id="inMerilec" placeholder="Dr. Dre"/>
-              </div>
-            </div>
-            <div class="row">
-                <div id="error3" class="error"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <div class="col-lg-12 text-center">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h3 class="panel-title"><strong>Generiranje testnih pacientov</strong></h3>
-          </div>
-          <div class="panel-body">
-            <div class="row">
-              <div onclick="klikNaAuto1()" id="div_b" class="col-lg-4">
-                <span id="auto1">1.</span>
-              </div>
-              <div onclick="klikNaAuto2()" id="div_b" class="col-lg-4">
-                <span id="auto2">2.</span>
-              </div>
-              <div onclick="klikNaAuto3()" id="div_b" class="col-lg-4">
-                </span><span id="auto3">3.</span>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-lg-12">
-                <button type="button" onclick="klikNaGumbGeneriraj()">Generiraj</button>
-              </div>
-            </div>
-            <div class="row">
-                <div id="error5" class="error"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <div class="col-lg-12 text-center">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h3 class="panel-title"><strong>Neka zunaja funkcionalnost</strong></h3>
-          </div>
-          <div class="panel-body">
-            
-          </div>
-        </div>
-      </div>
-      
-      <div class="col-lg-12 text-center">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h3 class="panel-title"><strong>Poizvedovanje z EHR ID po zapisih</strong></h3>
-          </div>
-          <form>
-              <div class="row">
-                <div class="col-sm-6">
-                  <span>EHR ID: </span><input id="inEHRID3" size="36" placeholder="7b661e12-3a98-21ad-c29e-2dc9f5a3d885" type="text" name=""/>
-                </div>
-                <div class="col-sm-6">
-                  <button type="button" onclick="klikNaGumbPoisciZapis()" id="Poizvedba"/>Poišči zapis</button>
-                </div>
-              </div>
-              <div class="row">
-                <div class = "col-sm-12">
-                  <form id="formRadio">
-                    <input id="radio0" type="radio" name="tip">Sistolični krvni tlak</input>
-                    <input id="radio1" type="radio" name="tip">Diastolični krvni tlak</input>
-                    <input id="radio2" type="radio" name="tip">Telesna višina</input>
-                    <input id="radio3" type="radio" name="tip">Telesna temperatura</input>
-                    <input id="radio4" type="radio" name="tip">Telesna teža</input>
-                    </form>
-                </div>
-              </div>
-              <div class="row">
-                <div id="error4" class="error"></div>
-                <div class="col-sm-12">
-                  <table id="tableEHR" border="1" width="100%">
-                    
-                    
-                    
-                  </table>
-                </div>
-              </div>
-              <div class="row">
-                <div id="povprecje"></div>
-              </div>
-            </form>
-        </div>
-      </div>
-      
-      
-      
-      <div class="col-lg-12 text-center">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h3 class="panel-title"><strong>Grafični prikaz podatkov</strong></h3>
-          </div>
-          <div class="panel-body">
-            <div class="row">
-              <div class="col-lg-12 text-center" id="graf">
-                
-              </div>
-              <div class="row">
-                <button type="button" onclick="klikNaGumbNarisi()">Nariši</button>
-              </div>
-              <div id="error6">
-                
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      
     </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+          <div class="panel panel-info">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-lg-8 col-md-6 col-xs-6">
+                        <strong>Generiranje testnih pacientov</strong>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-xs-6 text-right">
+                        <input type="button" onclick="klikNaGumbGeneriraj()" class="btn btn-primary btn-xs" value="Generiraj" />
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body">
+              <div class="row">
+                  <div class="col-md-4">
+                      <div onclick="klikNaAuto1()" id="div_b">
+                        <span id="auto1">-</span>
+                      </div>
+                  </div>
+                  <div class="col-md-4">
+                      <div onclick="klikNaAuto2()" id="div_b">
+                        <span id="auto2">-</span>
+                      </div>
+                  </div>
+                  <div class="col-md-4">
+                      <div onclick="klikNaAuto3()" id="div_b">
+                        <span id="auto3">-</span>
+                      </div>
+                  </div>
+              </div>
+
+              <div class="row">
+                <div class="col-lg-12"></div>
+              </div>
+
+              <div class="row">
+                  <div class="col-lg-12" style="margin: 5px 0;">
+                      <div id="error5" class="error"></div>
+                  </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-lg-12">
+          <div class="panel panel-info">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-lg-8 col-md-6 col-xs-6">
+                        <strong>Ustvari nov EHR zapis</strong>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-xs-6 text-right">
+                        <input type="button" id="dodajZapis" onclick="klikNaGumbDodajZapis()" value="Dodaj zapis" class="btn btn-primary btn-xs"/>
+                    </div>
+                </div>
+
+            </div>
+            <div class="panel-body">
+
+              <div class="row">
+                <div class="col-sm-4">
+                  <span class="label label-info">EHR ID: </span>
+                  <input id="inEHRID2" size="36" placeholder="254f791d-2e7c-49d9-b646-376f62d6ead5" type="text" name="EHR ID" class="form-control input-mini" />
+                </div>
+                <div class="col-sm-4">
+                  <span class="label label-info">Datum in ura: </span>
+                  <input id="inDatum" placeholder="2016-12-27T8:45" type="text" name="Datum" class="form-control input-mini" />
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-sm-4">
+                  <span class="label label-info">Sistolični krvni tlak: </span><br>
+                  <input type="text" id="inSTlak" placeholder="118 (mm Hg)" class="form-control input-mini" />
+                </div>
+                <div class="col-sm-4">
+                  <span class="label label-info">Diastolični krvni tlak: </span><br>
+                  <input type="text" id="inDTlak" placeholder="98 (mm Hg)" class="form-control input-mini" />
+                </div>
+                <div class="col-sm-4">
+                  <span class="label label-info">Telesna višina: </span><br>
+                  <input type="text" id="inSladkor" placeholder="175.5 (cm)" class="form-control input-mini" />
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-sm-4">
+                  <span class="label label-info">Telesna temperatura: </span>
+                  <input type="text" id="inTemperatura" placeholder="37.6 (°C)" class="form-control input-mini" />
+                </div>
+                <div class="col-sm-4">
+                  <span class="label label-info">Telesna teža: </span>
+                  <input type="text" id="inTeza" placeholder="75.5 (kg)" class="form-control input-mini" />
+                </div>
+                <div class="col-sm-4">
+                  <span class="label label-info">Zdravnik: </span>
+                  <input type="text" id="inMerilec" placeholder="Dr. Dre" class="form-control input-mini" />
+                </div>
+              </div>
+
+              <div class="row">
+                  <div class="col-lg-12" style="margin: 5px 0;">
+                      <div id="error3" class="error"></div>
+                  </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="panel panel-info">
+          <div class="panel-heading">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-xs-12">
+                    <strong>Neka zunaja funkcionalnost</strong>
+                </div>
+            </div>
+          </div>
+          <div class="panel-body"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+          <div class="panel panel-info">
+            <div class="panel-heading">
+              <div class="row">
+                  <div class="col-lg-8 col-md-6 col-xs-6">
+                      <strong>Poizvedovanje z EHR ID po zapisih</strong>
+                  </div>
+                  <div class="col-lg-4 col-md-6 col-xs-6 text-right">
+                      <input type="button" onclick="klikNaGumbPoisciZapis()" id="Poizvedba" class="btn btn-primary btn-xs" value="Poišči zapis" />
+                  </div>
+              </div>
+            </div>
+            <div class="panel-body">
+
+                  <div class="row" style="margin-bottom: 20px;">
+                      <div class="col-sm-6">
+                          <span class="label label-info">EHR ID: </span>
+                          <input id="inEHRID3" size="36" placeholder="7b661e12-3a98-21ad-c29e-2dc9f5a3d885" type="text" class="form-control input-mini" />
+                      </div>
+                  </div>
+
+                  <div class="row">
+                      <div class="col-sm-12">
+                          <form id="formRadio">
+                              <div class="radio">
+                                <label><input id="radio0" type="radio" name="tip">Sistolični krvni tlak</label>
+                                <label><input id="radio1" type="radio" name="tip">Diastolični krvni tlak</label>
+                                <label><input id="radio2" type="radio" name="tip">Telesna višina</label>
+                                <label><input id="radio3" type="radio" name="tip">Telesna temperatura</label>
+                                <label><input id="radio4" type="radio" name="tip">Telesna teža</label>
+                              </div>
+                          </form>
+                      </div>
+                  </div>
+
+                  <div class="row">
+                      <div class="col-lg-12" style="margin: 5px 0;">
+                          <div id="error4" class="error"></div>
+                      </div>
+                  </div>
+
+                  <div class="row">
+                      <div class="col-lg-12">
+                          <table id="tableEHR" width="100%" class="table"></table>
+                      </div>
+                  </div>
+
+                  <div class="row">
+                      <div class="col-lg-12">
+                          <div id="povprecje"></div>
+                      </div>
+                  </div>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+          <div class="panel panel-info">
+            
+            <div class="panel-heading">
+              <div class="row">
+                  <div class="col-lg-8 col-md-6 col-xs-6">
+                      <strong>Grafični prikaz podatkov</strong>
+                  </div>
+                  <div class="col-lg-4 col-md-6 col-xs-6 text-right">
+                      <input type="button" class="btn btn-primary btn-xs" onclick="klikNaGumbNarisi()" value="Nariši">
+                  </div>
+              </div>
+            </div>
+            <div class="panel-body">
+
+                <div class="row">
+                    <div class="col-lg-12 text-center" id="graf"></div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12" style="margin: 5px 0;">
+                        <div id="error6" class="error"></div>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+          </div>
+        </div>
+    </div>
+
+
   </div>
   <!-- KONEC: Vsebina aplikacije -->
 

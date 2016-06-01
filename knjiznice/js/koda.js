@@ -26,17 +26,17 @@ function klikNaGumbRegistracija() {
     var ime = document.getElementById("inIme").value;
     var priimek = document.getElementById("inPriimek").value;
     var rojstvo = document.getElementById("inRojstvo").value;
-    
+
     //console.log("REGISTRACIJA:");
-    
+
     if(ime && priimek && rojstvo) {
         //console.log(ime);
         //console.log(priimek);
         //console.log(rojstvo);
-        
+
         document.getElementById("error1").innerHTML = "";
         document.getElementById("error1").style.color = "green";
-        
+
         $.ajaxSetup({
 		    headers: {"Ehr-Session": sessionId}
 		});
@@ -76,18 +76,18 @@ function klikNaGumbRegistracija() {
         document.getElementById("error1").innerHTML = "Vnesite vse podatke.";
         document.getElementById("error1").style.color = "red";
     }
-    
+
 }
 
 function klikNaGumbPoisci() {
     var sessionId = getSessionId();
     var ehrid = document.getElementById("inEHRID1").value;
-    
+
     //console.log("POISCI:")
-    
+
     if(ehrid) {
         //console.log(ehrid);
-        
+
         $.ajax({
 			url: baseUrl + "/demographics/ehr/" + ehrid + "/party",
 			type: 'GET',
@@ -107,13 +107,13 @@ function klikNaGumbPoisci() {
 				$("#error2").html("Napaka '" + JSON.parse(err.responseText).userMessage + "'!");
 			}
 		});
-        
+
     }
     else {
         document.getElementById("error2").innerHTML = "Vnesite vse podatke.";
         document.getElementById("error2").style.color = "red";
     }
-    
+
 }
 
 function klikNaGumbDodajZapis() {
@@ -126,11 +126,11 @@ function klikNaGumbDodajZapis() {
     var teza = document.getElementById("inTeza").value;
     var sladkor = document.getElementById("inSladkor").value;
     var merilec = document.getElementById("inMerilec").value;
-    
+
     //console.log("DODAJ ZAPIS:")
-    
+
     if(ehrId && datum && sTlak && dTlak && temp && teza && sladkor) {
-        
+
         //console.log(ehrId);
         //console.log(datum);
         //console.log(sTlak);
@@ -139,8 +139,8 @@ function klikNaGumbDodajZapis() {
         //console.log(teza);
         //console.log(sladkor);
         //console.log(merilec);
-        
-        
+
+
         $.ajaxSetup({
 		    headers: {"Ehr-Session": sessionId}
 		});
@@ -180,25 +180,25 @@ function klikNaGumbDodajZapis() {
         document.getElementById("error3").innerHTML = "Vnesite vse podatke.";
         document.getElementById("error3").style.color = "red";
     }
-    
+
 }
 
 function klikNaGumbPoisciZapis() {
     var sessionId = getSessionId();
     var ehrId = document.getElementById("inEHRID3").value;
     var tip = getRadioButton();
-    
+
     startPage(getRadioButton());
-    
+
     //console.log("POISCIZAPIS:");
-    
+
     if(ehrId) {
         //console.log(ehrId);
         document.getElementById("error4").innerHTML = "";
         document.getElementById("error4").style.color = "green";
-        
+
         startPage();
-        
+
         $.ajax({
 			url: baseUrl + "/demographics/ehr/" + ehrId + "/party",
 	    	type: 'GET',
@@ -210,7 +210,7 @@ function klikNaGumbPoisciZapis() {
                 document.getElementById("error4").innerHTML = "Ime: "+party.firstNames+" | Priimek: "+party.lastNames;
 
 				var tmp = getRadioButton();
-				
+
 				if(tmp == 0) {
 					$.ajax({
 	  				    url: baseUrl + "/view/" + ehrId + "/" + "blood_pressure",
@@ -235,7 +235,7 @@ function klikNaGumbPoisciZapis() {
 					    }
 					});
 				}
-				
+
 				if(tmp == 1) {
 					$.ajax({
 	  				    url: baseUrl + "/view/" + ehrId + "/" + "blood_pressure",
@@ -260,7 +260,7 @@ function klikNaGumbPoisciZapis() {
 					    }
 					});
 				}
-				
+
 				if(tmp == 2) {
 					$.ajax({
 	  				    url: baseUrl + "/view/" + ehrId + "/" + "height",
@@ -310,7 +310,7 @@ function klikNaGumbPoisciZapis() {
 					    }
 					});
 				}
-				
+
 				if(tmp == 4) {
 					$.ajax({
 	  				    url: baseUrl + "/view/" + ehrId + "/" + "weight",
@@ -338,13 +338,13 @@ function klikNaGumbPoisciZapis() {
                 document.getElementById("error4").innerHTML = JSON.parse(err.responseText).userMessage+"!";
 	    	}
 		});
-        
+
     }
     else {
         document.getElementById("error4").innerHTML = "Vnesite vse podatke.";
         document.getElementById("error4").style.color = "red";
     }
-    
+
 }
 
 function getPovprecje() {
@@ -367,61 +367,61 @@ function klikNaGumbNarisi() {
 		document.getElementById("error6").innerHTML = "";
 		document.getElementById("graf").innerHTML = "";
 		var arrData = new Array(tableD.length);
-		
+
 		for(var i = 0; i < tableD.length; i++) {
 			var d = tableD[i].innerHTML;
 			var t = tableT[i].innerHTML;
 			t = t.split("T")[0];
 			arrData[i] = [t, parseInt(d)];
 		}
-		     
+
 		var margin = {top: 20, right: 20, bottom: 30, left: 50},
 		    width = 960 - margin.left - margin.right,
 		    height = 500 - margin.top - margin.bottom;
-		
+
 		var parseDate = d3.time.format("%Y-%m-%d").parse;
-		
-		
+
+
 		var x = d3.time.scale()
 		    .range([0, width])
-		
+
 		var y = d3.scale.linear()
 		    .range([height, 0]);
-		
+
 		var xAxis = d3.svg.axis()
 		    .scale(x)
 		    .orient("bottom");
-		
+
 		var yAxis = d3.svg.axis()
 		    .scale(y)
 		    .orient("left");
-		
+
 		var line = d3.svg.line()
 		    .x(function(d) { return x(d.date); })
 		    .y(function(d) { return y(d.close); });
-		
+
 		var svg = d3.select("#graf").append("svg")
 		    .attr("width", width + margin.left + margin.right)
 		    .attr("height", height + margin.top + margin.bottom)
 		  .append("g")
 		    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-		
+
 		var data = arrData.map(function(d) {
 		  return {
 		     date: parseDate(d[0]),
 		     close: d[1]
 		  };
-		  
+
 		});
-		
+
 		x.domain(d3.extent(data, function(d) { return d.date; }));
 		y.domain(d3.extent(data, function(d) { return d.close; }));
-		
+
 		svg.append("g")
 		  .attr("class", "x axis")
 		  .attr("transform", "translate(0," + height + ")")
 		  .call(xAxis);
-		
+
 		svg.append("g")
 		  .attr("class", "y axis")
 		  .call(yAxis)
@@ -431,7 +431,7 @@ function klikNaGumbNarisi() {
 		  .attr("dy", ".71em")
 		  .style("text-anchor", "end")
 		  .text(document.getElementById("uniq").innerHTML.split(":")[0]+" ("+document.getElementById("unit").innerHTML+")");
-		
+
 		svg.append("path")
 		  .datum(data)
 		  .attr("class", "line")
@@ -454,19 +454,19 @@ function startPage(input) {
 	var table = document.getElementById("tableEHR");
     switch (input) {
     	case '0':
-    		table.innerHTML = "<tr><th><strong>Datum:</strong></th><th><strong id='uniq'>Sistolični krvni tlak:</strong></th></tr>";
+    		table.innerHTML = "<tr><th><strong>Datum:</strong></th><th><strong id='uniq'>Sistolični krvni tlak:</strong></th><th><strong>Enota:</strong></th></tr>";
     		break;
     	case '1':
-    		table.innerHTML = "<tr><th><strong>Datum:</strong></th><th><strong id='uniq'>Diastolični krvni tlak:</strong></th></tr>";
+    		table.innerHTML = "<tr><th><strong>Datum:</strong></th><th><strong id='uniq'>Diastolični krvni tlak:</strong></th><th><strong>Enota:</strong></th></tr>";
     		break;
     	case '2':
-    		table.innerHTML = "<tr><th><strong>Datum:</strong></th><th><strong id='uniq'>Telesna višina:</strong></th></tr>";
+    		table.innerHTML = "<tr><th><strong>Datum:</strong></th><th><strong id='uniq'>Telesna višina:</strong></th><th><strong>Enota:</strong></th></tr>";
     		break;
     	case '3':
-    		table.innerHTML = "<tr><th><strong>Datum:</strong></th><th><strong id='uniq'>Telesna temperatura:</strong></th></tr>";
+    		table.innerHTML = "<tr><th><strong>Datum:</strong></th><th><strong id='uniq'>Telesna temperatura:</strong></th><th><strong>Enota:</strong></th></tr>";
     		break;
     	case '4':
-    		table.innerHTML = "<tr><th><strong>Datum:</strong></th><th><strong id='uniq'>Telesna teža:</strong></th></tr>";
+    		table.innerHTML = "<tr><th><strong>Datum:</strong></th><th><strong id='uniq'>Telesna teža:</strong></th><th><strong>Enota:</strong></th></tr>";
     		break;
     	default:
     		return;
@@ -474,7 +474,7 @@ function startPage(input) {
 }
 
 function getRadioButton() {
-	var ids = ["radio0", "radio1", "radio2", "radio3", "radio4", "radio5"];
+	var ids = ["radio0", "radio1", "radio2", "radio3", "radio4"];
 	for(var i in ids) {
 		if(document.getElementById(ids[i]).checked) {
 			return i;
@@ -496,7 +496,7 @@ function generirajPaciente(stPacienta) {
 	var ime;
 	var priimek;
 	var datumRojstva;
-	
+
 	switch (stPacienta) {
 	  case '1':
 	  	ime = "Mojca"
@@ -516,9 +516,9 @@ function generirajPaciente(stPacienta) {
 	  default:
 	  	break;
 	}
-  
+
 	var sessionId = getSessionId();
-	
+
 	$.ajaxSetup({
 	    headers: {"Ehr-Session": sessionId}
 	});
