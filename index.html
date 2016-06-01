@@ -10,6 +10,7 @@
   </style>
   <script src="knjiznice/js/jquery-2.2.3.min.js"></script>
   <script src="knjiznice/js/bootstrap.min.js"></script>
+  <script src="knjiznice/js/d3.min.js"></script>
   <script src="knjiznice/js/koda.js"></script>
 </head>
 <body>
@@ -144,7 +145,7 @@
                 <span>Diastolični krvni tlak: </span><input type="text" id="inDTlak" placeholder="98 (mm Hg)"/>
               </div>
               <div class="col-sm-4">
-                <span>Krvni sladkor: </span><input type="text" id="inSladkor" placeholder="13.1 (mmol/l)"/>
+                <span>Telesna višina: </span><input type="text" id="inSladkor" placeholder="175.5 (cm)"/>
               </div>
             </div>
             <div class="row">
@@ -172,20 +173,23 @@
           </div>
           <div class="panel-body">
             <div class="row">
-              <div id="auto1" class="col-lg-4">
-                --
+              <div onclick="klikNaAuto1()" id="div_b" class="col-lg-4">
+                <span id="auto1">1.</span>
               </div>
-              <div id="auto2" class="col-lg-4">
-                --
+              <div onclick="klikNaAuto2()" id="div_b" class="col-lg-4">
+                <span id="auto2">2.</span>
               </div>
-              <div id="auto3" class="col-lg-4">
-                --
+              <div onclick="klikNaAuto3()" id="div_b" class="col-lg-4">
+                </span><span id="auto3">3.</span>
               </div>
             </div>
             <div class="row">
               <div class="col-lg-12">
                 <button type="button" onclick="klikNaGumbGeneriraj()">Generiraj</button>
               </div>
+            </div>
+            <div class="row">
+                <div id="error5" class="error"></div>
             </div>
           </div>
         </div>
@@ -195,17 +199,6 @@
         <div class="panel panel-default">
           <div class="panel-heading">
             <h3 class="panel-title"><strong>Neka zunaja funkcionalnost</strong></h3>
-          </div>
-          <div class="panel-body">
-            
-          </div>
-        </div>
-      </div>
-      
-      <div class="col-lg-12 text-center">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h3 class="panel-title"><strong>Grafični prikaz podatkov</strong></h3>
           </div>
           <div class="panel-body">
             
@@ -232,7 +225,7 @@
                   <form id="formRadio">
                     <input id="radio0" type="radio" name="tip">Sistolični krvni tlak</input>
                     <input id="radio1" type="radio" name="tip">Diastolični krvni tlak</input>
-                    <input id="radio2" type="radio" name="tip">Krvni sladkor</input>
+                    <input id="radio2" type="radio" name="tip">Telesna višina</input>
                     <input id="radio3" type="radio" name="tip">Telesna temperatura</input>
                     <input id="radio4" type="radio" name="tip">Telesna teža</input>
                     </form>
@@ -248,9 +241,36 @@
                   </table>
                 </div>
               </div>
+              <div class="row">
+                <div id="povprecje"></div>
+              </div>
             </form>
         </div>
       </div>
+      
+      
+      
+      <div class="col-lg-12 text-center">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title"><strong>Grafični prikaz podatkov</strong></h3>
+          </div>
+          <div class="panel-body">
+            <div class="row">
+              <div class="col-lg-12 text-center" id="graf">
+                
+              </div>
+              <div class="row">
+                <button type="button" onclick="klikNaGumbNarisi()">Nariši</button>
+              </div>
+              <div id="error6">
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
       
     </div>
   </div>
