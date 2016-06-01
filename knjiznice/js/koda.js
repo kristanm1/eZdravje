@@ -352,11 +352,11 @@ function getPovprecje() {
 	if(tab) {
 		var sum = 0;
 		for(var i = 0; i < tab.length; i++) {
-			sum += parseInt(tab[i].innerHTML);
+			sum += parseFloat(tab[i].innerHTML);
 		}
 		sum = sum / tab.length;
 	}
-	return "<strong>Povprečje:</strong> "+sum+" "+document.getElementById("unit").innerHTML;
+	return "<strong>Povprečje:</strong> "+sum.toFixed(2)+" "+document.getElementById("unit").innerHTML;
 }
 
 
