@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Zdravstvena ordinacija</title>
   <link href="knjiznice/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href=knjiznice/css/stili.css type="text/css" />
@@ -11,10 +12,12 @@
   </style>
   <script src="knjiznice/js/jquery-2.2.3.min.js"></script>
   <script src="knjiznice/js/bootstrap.min.js"></script>
-  <script src="knjiznice/js/d3.min.js"></script>
   <script src="knjiznice/js/koda.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.min.js"></script>
+  
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD345rSEDgmGRPP-lNNCJMYgjozAyLreSA&libraries=places"></script>
 </head>
-<body>
+<body onload="initialize()">
 
   <!-- ZAČETEK: Menujska vrstica na vrhu spletne strani -->
   <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -47,7 +50,7 @@
       <div class="col-lg-12">
 
           <div class="well" style="background-image: url('./ambulance.png'); background-repeat: no-repeat; backgorund-size: cover;">
-            <h1><a href="https://en.wikipedia.org/wiki/Diabetes_mellitus" target="_blank">Zdravstvena ordinacija</a></h1>
+            <h1><a href="https://sl.wikipedia.org/wiki/Zdravje" target="_blank">Zdravstvena ordinacija</a></h1>
             <p>Kratek opis aplikacije</p>
           </div>
       </div>
@@ -188,7 +191,9 @@
               </div>
 
               <div class="row">
-                <div class="col-lg-12"></div>
+                <div class="col-lg-12">
+                  <div id="error7" class="error"></div>
+                </div>
               </div>
 
               <div class="row">
@@ -227,6 +232,10 @@
                 <div class="col-sm-4">
                   <span class="label label-info">Datum in ura: </span>
                   <input id="inDatum" placeholder="2016-12-27T8:45" type="text" name="Datum" class="form-control input-mini" />
+                </div>
+                <div class="col-sm-4">
+                  <span class="label label-info">Predpisan recept: </span>
+                  <input id="inRecept" placeholder="Recept" type="text" name="Recept" class="form-control input-mini" />
                 </div>
               </div>
 
@@ -277,11 +286,13 @@
           <div class="panel-heading">
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-xs-12">
-                    <strong>Neka zunaja funkcionalnost</strong>
+                    <strong>Najbližje lekarne za prevzem recepta</strong>
                 </div>
             </div>
           </div>
-          <div class="panel-body"></div>
+          <div class="panel-body">
+            <div id="map" style="height: 300px; width: 100%;"></div>
+          </div>
         </div>
       </div>
     </div>
@@ -295,7 +306,7 @@
                       <strong>Poizvedovanje z EHR ID po zapisih</strong>
                   </div>
                   <div class="col-lg-4 col-md-6 col-xs-6 text-right">
-                      <input type="button" onclick="klikNaGumbPoisciZapis()" id="Poizvedba" class="btn btn-primary btn-xs" value="Poišči zapis" />
+                      <input type="button" onclick="klikNaGumbPoisciZapis()" id="Poizvedba" class="btn btn-primary btn-xs" value="Poišči zapis in vizualiziraj" />
                   </div>
               </div>
             </div>
@@ -350,11 +361,8 @@
             
             <div class="panel-heading">
               <div class="row">
-                  <div class="col-lg-8 col-md-6 col-xs-6">
+                  <div class="col-lg-12 col-md-12 col-xs-12">
                       <strong>Grafični prikaz podatkov</strong>
-                  </div>
-                  <div class="col-lg-4 col-md-6 col-xs-6 text-right">
-                      <input type="button" class="btn btn-primary btn-xs" onclick="klikNaGumbNarisi()" value="Nariši">
                   </div>
               </div>
             </div>
@@ -366,7 +374,7 @@
 
                 <div class="row">
                     <div class="col-lg-12 text-center">
-                        
+                        <canvas id="chart" style="width: 100%; height: 300px;"></canvas>
                     </div>
                 </div>
 

@@ -126,20 +126,9 @@ function klikNaGumbDodajZapis() {
     var teza = document.getElementById("inTeza").value;
     var sladkor = document.getElementById("inSladkor").value;
     var merilec = document.getElementById("inMerilec").value;
-
-    //console.log("DODAJ ZAPIS:")
+    var recept = document.getElementById("inRecept").value;
 
     if(ehrId && datum && sTlak && dTlak && temp && teza && sladkor) {
-
-        //console.log(ehrId);
-        //console.log(datum);
-        //console.log(sTlak);
-        //console.log(dTlak);
-        //console.log(temp);
-        //console.log(teza);
-        //console.log(sladkor);
-        //console.log(merilec);
-
 
         $.ajaxSetup({
 		    headers: {"Ehr-Session": sessionId}
@@ -153,7 +142,7 @@ function klikNaGumbDodajZapis() {
 		   	"vital_signs/body_temperature/any_event/temperature|magnitude": temp,
 		    "vital_signs/body_temperature/any_event/temperature|unit": "°C",
 		    "vital_signs/blood_pressure/any_event/systolic": sTlak,
-		    "vital_signs/blood_pressure/any_event/diastolic": dTlak
+		    "vital_signs/blood_pressure/any_event/diastolic": dTlak,
 		};
 		var parametriZahteve = {
 		    ehrId: ehrId,
@@ -220,7 +209,7 @@ function klikNaGumbPoisciZapis() {
 				    	    var result = "";
 				    	    if(res.length > 0) {
 				    	        for(var i in res) {
-				    	            result += "<tr><td class='time'>"+res[i].time+"</td><td class='data'>"+res[i].systolic+"</td><td id='unit'>"+res[i].unit+"</td></tr>"
+				    	            result += "<tr><td class='time'>"+res[i].time+"</td><td class='data'>"+res[i].systolic.toFixed(2)+"</td><td id='unit'>"+res[i].unit+"</td></tr>"
 				    	        }
 				    	        document.getElementById("tableEHR").innerHTML = document.getElementById("tableEHR").innerHTML + result;
 				    	        document.getElementById("povprecje").innerHTML = getPovprecje();
@@ -228,6 +217,7 @@ function klikNaGumbPoisciZapis() {
 				    	    else {
 				    	    	document.getElementById("tableEHR").innerHTML = document.getElementById("tableEHR").innerHTML + "<tr><td>No records</td></tr>"
 				    	    }
+				    	    narisi();
 					    },
 					    error: function() {
 					    	document.getElementById("error4").innerHTML = "Prišlo je do napake.";
@@ -245,7 +235,7 @@ function klikNaGumbPoisciZapis() {
 				    	    var result = "";
 				    	    if(res.length > 0) {
 				    	        for(var i in res) {
-				    	            result += "<tr><td class='time'>"+res[i].time+"</td><td class='data'>"+res[i].diastolic+"</td><td id='unit'>"+res[i].unit+"</td></tr>"
+				    	            result += "<tr><td class='time'>"+res[i].time+"</td><td class='data'>"+res[i].diastolic.toFixed(2)+"</td><td id='unit'>"+res[i].unit+"</td></tr>"
 				    	        }
 				    	        document.getElementById("tableEHR").innerHTML = document.getElementById("tableEHR").innerHTML + result;
 				    	        document.getElementById("povprecje").innerHTML = getPovprecje();
@@ -253,6 +243,7 @@ function klikNaGumbPoisciZapis() {
 				    	    else {
 				    	    	document.getElementById("tableEHR").innerHTML = document.getElementById("tableEHR").innerHTML + "<tr><td>No records</td></tr>"
 				    	    }
+				    	    narisi();
 					    },
 					    error: function() {
 					    	document.getElementById("error4").innerHTML = "Prišlo je do napake.";
@@ -270,7 +261,7 @@ function klikNaGumbPoisciZapis() {
 				    	    var result = "";
 				    	    if(res.length > 0) {
 				    	        for(var i in res) {
-				    	            result += "<tr><td class='time'>"+res[i].time+"</td><td class='data'>"+res[i].height+"</td><td id='unit'>cm</td></tr>"
+				    	            result += "<tr><td class='time'>"+res[i].time+"</td><td class='data'>"+res[i].height.toFixed(2)+"</td><td id='unit'>cm</td></tr>"
 				    	        }
 				    	        document.getElementById("tableEHR").innerHTML = document.getElementById("tableEHR").innerHTML + result;
 				    	        document.getElementById("povprecje").innerHTML = getPovprecje();
@@ -278,6 +269,7 @@ function klikNaGumbPoisciZapis() {
 				    	    else {
 				    	    	document.getElementById("tableEHR").innerHTML = document.getElementById("tableEHR").innerHTML + "<tr><td>No records</td></tr>"
 				    	    }
+				    	    narisi();
 					    },
 					    error: function() {
 					    	document.getElementById("error4").innerHTML = "Prišlo je do napake.";
@@ -295,7 +287,7 @@ function klikNaGumbPoisciZapis() {
 				    	    var result = "";
 				    	    if(res.length > 0) {
 				    	        for(var i in res) {
-				    	            result += "<tr><td class='time'>"+res[i].time+"</td><td class='data'>"+res[i].temperature+"</td><td id='unit'>°C</td></tr>"
+				    	            result += "<tr><td class='time'>"+res[i].time+"</td><td class='data'>"+res[i].temperature.toFixed(2)+"</td><td id='unit'>°C</td></tr>"
 				    	        }
 				    	        document.getElementById("tableEHR").innerHTML = document.getElementById("tableEHR").innerHTML + result;
 				    	        document.getElementById("povprecje").innerHTML = getPovprecje();
@@ -303,6 +295,7 @@ function klikNaGumbPoisciZapis() {
 				    	    else {
 				    	    	document.getElementById("tableEHR").innerHTML = document.getElementById("tableEHR").innerHTML + "<tr><td>No records</td></tr>"
 				    	    }
+				    	    narisi();
 					    },
 					    error: function() {
 					    	document.getElementById("error4").innerHTML = "Prišlo je do napake.";
@@ -320,11 +313,15 @@ function klikNaGumbPoisciZapis() {
 				    	    var result = "";
 				    	    if(res.length > 0) {
 				    	        for(var i in res) {
-				    	            result += "<tr><td class='time'>"+res[i].time+"</td><td class='data'>"+res[i].weight+"</td><td id='unit'>kg</td></tr>"
+				    	            result += "<tr><td class='time'>"+res[i].time+"</td><td class='data'>"+res[i].weight.toFixed(2)+"</td><td id='unit'>kg</td></tr>"
 				    	        }
 				    	        document.getElementById("tableEHR").innerHTML = document.getElementById("tableEHR").innerHTML + result;
 				    	        document.getElementById("povprecje").innerHTML = getPovprecje();
 				    	    }
+				    	    else {
+				    	    	document.getElementById("tableEHR").innerHTML = document.getElementById("tableEHR").innerHTML + "<tr><td>No records</td></tr>"
+				    	    }
+				    	    narisi();
 					    },
 					    error: function() {
 					    	document.getElementById("error4").innerHTML = "Prišlo je do napake.";
@@ -332,7 +329,6 @@ function klikNaGumbPoisciZapis() {
 					    }
 					});
 				}
-
 	    	},
 	    	error: function(err) {
                 document.getElementById("error4").innerHTML = JSON.parse(err.responseText).userMessage+"!";
@@ -359,94 +355,95 @@ function getPovprecje() {
 	return "<strong>Povprečje:</strong> "+sum.toFixed(2)+" "+document.getElementById("unit").innerHTML;
 }
 
+var chartEl,chart,chartData,chartTitle;
+chartTitle = "Ni izbrane meritve!";
 
-function klikNaGumbNarisi() {
-	var tableD = document.getElementsByClassName("data");
-	var tableT = document.getElementsByClassName("time");
-	if(tableD.length != 0) {
-		document.getElementById("error6").innerHTML = "";
-		document.getElementById("graf").innerHTML = "";
-		var arrData = new Array(tableD.length);
+$(document).ready(function(){
+	chartEl = $("#chart");
+	
+	chartData = {
+	    labels: [],
+	    datasets: [
+	        {
+	            label: chartTitle,
+	            fill: true,
+	            lineTension: 0.4,
+	            backgroundColor: "rgba(75,192,192,0.4)",
+	            borderColor: "rgba(75,192,192,1)",
+	            borderCapStyle: 'round',
+	            borderDash: [],
+	            borderDashOffset: 0.0,
+	            borderJoinStyle: 'miter',
+	            pointBorderColor: "rgba(75,192,192,1)",
+	            pointBackgroundColor: "#fff",
+	            pointBorderWidth: 1,
+	            pointHoverRadius: 5,
+	            pointHoverBackgroundColor: "rgba(75,192,192,1)",
+	            pointHoverBorderColor: "rgba(220,220,220,1)",
+	            pointHoverBorderWidth: 2,
+	            pointRadius: 4,
+	            pointHitRadius: 10,
+	            data: [],
+	        }
+	    ]
+	};
+	
+	chart = new Chart(chartEl, {
+	    type: 'line',
+	    data: chartData,
+	    options: {
+	    	scales: {
+	            xAxes: [{
+	                display: false
+	            }]
+	        }
+	    }
+	});
+});
 
-		for(var i = 0; i < tableD.length; i++) {
-			var d = tableD[i].innerHTML;
-			var t = tableT[i].innerHTML;
-			t = t.split("T")[0];
-			arrData[i] = [t, parseInt(d)];
+
+function narisi() {
+	var data_values = $(".data");
+	var time_values = $(".time");
+	
+	var labels = [];
+	var values = [];
+	for (var i = 0; i < data_values.length; i++)
+	{
+		labels.push(time_values.eq(i).html());
+		values.push(data_values.eq(i).html());
+	}
+	
+	var selected = "Ni izbrane meritve!";
+	var items = $("#formRadio input[type='radio']");
+	for (var i in items)
+	{
+		if ($(items).eq(i).is(":checked"))
+		{
+			selected = $(items).eq(i).parent().text();
+			break;
 		}
-
-		var margin = {top: 20, right: 20, bottom: 30, left: 50},
-		    width = 960 - margin.left - margin.right,
-		    height = 500 - margin.top - margin.bottom;
-
-		var parseDate = d3.time.format("%Y-%m-%d").parse;
-
-
-		var x = d3.time.scale()
-		    .range([0, width])
-
-		var y = d3.scale.linear()
-		    .range([height, 0]);
-
-		var xAxis = d3.svg.axis()
-		    .scale(x)
-		    .orient("bottom");
-
-		var yAxis = d3.svg.axis()
-		    .scale(y)
-		    .orient("left");
-
-		var line = d3.svg.line()
-		    .x(function(d) { return x(d.date); })
-		    .y(function(d) { return y(d.close); });
-
-		var svg = d3.select("#graf").append("svg")
-		    .attr("width", width + margin.left + margin.right)
-		    .attr("height", height + margin.top + margin.bottom)
-		  .append("g")
-		    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-		var data = arrData.map(function(d) {
-		  return {
-		     date: parseDate(d[0]),
-		     close: d[1]
-		  };
-
-		});
-
-		x.domain(d3.extent(data, function(d) { return d.date; }));
-		y.domain(d3.extent(data, function(d) { return d.close; }));
-
-		svg.append("g")
-		  .attr("class", "x axis")
-		  .attr("transform", "translate(0," + height + ")")
-		  .call(xAxis);
-
-		svg.append("g")
-		  .attr("class", "y axis")
-		  .call(yAxis)
-		.append("text")
-		  .attr("transform", "rotate(-90)")
-		  .attr("y", 6)
-		  .attr("dy", ".71em")
-		  .style("text-anchor", "end")
-		  .text(document.getElementById("uniq").innerHTML.split(":")[0]+" ("+document.getElementById("unit").innerHTML+")");
-
-		svg.append("path")
-		  .datum(data)
-		  .attr("class", "line")
-		  .attr("d", line);
 	}
-	else {
-		document.getElementById("error6").innerHTML = "Prvo je potrebno 'Poizvedovanje z EHR ID po zapisih'".bold();
-		document.getElementById("error6").style.color = "red";
-	}
+	
+	chartTitle = selected;
+	
+	chartData.labels = labels;
+	chartData.datasets[0].data = values;
+	chartData.datasets[0].label = chartTitle;
+	
+	chart.update();
 }
 
 function klikNaGumbGeneriraj() {
 	generirajPaciente("1");
 	generirajPaciente("2");
 	generirajPaciente("3");
+	
+	setTimeout(function() {
+		document.getElementById("error7").innerHTML = "Usprešno generiranje pacientov!";
+		document.getElementById("error7").style.color = "green";
+	}, 1000);
+	
 }
 
 
@@ -540,19 +537,173 @@ function generirajPaciente(stPacienta) {
 	            data: JSON.stringify(partyData),
 	            success: function (party) {
 	                if (party.action == 'CREATE') {
-	                    document.getElementById("error5").innerHTML = "";
-                        document.getElementById("error5").style.color = "green";
 	                    $("#auto" + stPacienta).html(ehrId);
-	                    $("#error5").html("");
 	                }
 	            },
 	            error: function(err) {
-	                document.getElementById("error5").style.color = "red";
-	            	$("#error5").html(JSON.parse(err.responseText).userMessage + "'!");
 	            }
 	        });
 	    }
 	});
+	
+	setTimeout(function() {
+		generirajPregled(stPacienta);
+	}, 1000);
+
+}
+
+function generirajPregled(stPacienta) {
+	var sessionId = getSessionId();
+	
+	var datum = new Array(5);
+	var sTlak = new Array(5);
+	var dTlak = new Array(5);
+	var visina = new Array(5);
+	var temp = new Array(5);
+	var teza = new Array(5);
+	var merilec = new Array(5);
+	var ehrId = document.getElementById("auto"+stPacienta).innerHTML;
+
+	
+	switch (stPacienta) {
+		case '1':
+			datum[0] = "2000-1-1T12:32";
+			datum[1] = "2000-2-15T11:22";
+			datum[2] = "2000-4-19T11:20";
+			datum[3] = "2001-2-3T1:13";
+			datum[4] = "2080-11-27T5:50";
+			sTlak[0] = 90;
+			sTlak[1] = 111;
+			sTlak[2] = 88;
+			sTlak[3] = 120;
+			sTlak[4] = 300;
+			dTlak[0] = 70;
+			dTlak[1] = 120;
+			dTlak[2] = 79;
+			dTlak[3] = 129;
+			dTlak[4] = 250;
+			visina[0] = 175;
+			visina[1] = 176;
+			visina[2] = 175;
+			visina[3] = 177;
+			visina[4] = 174;
+			temp[0] = 37.2;
+			temp[1] = 37.3;
+			temp[2] = 38.9;
+			temp[3] = 42.9;
+			temp[4] = 35;
+			teza[0] = 80;
+			teza[1] = 82;
+			teza[2] = 110;
+			teza[3] = 88;
+			teza[4] = 75;
+			break;
+		case '2':
+			datum[0] = "2005-1-1T12:32";
+			datum[1] = "2006-2-15T11:22";
+			datum[2] = "2007-4-19T11:20";
+			datum[3] = "2008-2-3T1:13";
+			datum[4] = "2009-11-27T5:50";
+			sTlak[0] = 80;
+			sTlak[1] = 101;
+			sTlak[2] = 98;
+			sTlak[3] = 100;
+			sTlak[4] = 250;
+			dTlak[0] = 80;
+			dTlak[1] = 220;
+			dTlak[2] = 39;
+			dTlak[3] = 129;
+			dTlak[4] = 150;
+			visina[0] = 195;
+			visina[1] = 196;
+			visina[2] = 195;
+			visina[3] = 197;
+			visina[4] = 194;
+			temp[0] = 37.2;
+			temp[1] = 37.3;
+			temp[2] = 38.9;
+			temp[3] = 42.9;
+			temp[4] = 35;
+			teza[0] = 80;
+			teza[1] = 82;
+			teza[2] = 110;
+			teza[3] = 88;
+			teza[4] = 75;
+			break;
+		case '3':
+			datum[0] = "2000-1-1T12:32";
+			datum[1] = "2000-2-15T11:22";
+			datum[2] = "2000-4-19T11:20";
+			datum[3] = "2001-2-3T1:13";
+			datum[4] = "2080-11-27T5:50";
+			sTlak[0] = 90;
+			sTlak[1] = 111;
+			sTlak[2] = 88;
+			sTlak[3] = 120;
+			sTlak[4] = 300;
+			dTlak[0] = 70;
+			dTlak[1] = 120;
+			dTlak[2] = 79;
+			dTlak[3] = 129;
+			dTlak[4] = 250;
+			visina[0] = 175;
+			visina[1] = 176;
+			visina[2] = 175;
+			visina[3] = 177;
+			visina[4] = 174;
+			temp[0] = 37.2;
+			temp[1] = 37.3;
+			temp[2] = 38.9;
+			temp[3] = 42.9;
+			temp[4] = 35;
+			teza[0] = 180;
+			teza[1] = 182;
+			teza[2] = 110;
+			teza[3] = 188;
+			teza[4] = 175;
+			break;
+		default:
+			break;
+	}
+	
+	for(var i = 0; i < 5; i++) {
+		 dodajPregled(datum[i], sTlak[i], dTlak[i], visina[i], temp[i], teza[i], sessionId, ehrId);
+	}	
+	
+}
+
+function dodajPregled(datum, sTlak, dTlak, visina, temp, teza, sessionId, ehrId) {
+	$.ajaxSetup({
+	    headers: {"Ehr-Session": sessionId}
+	});
+	
+	var podatki = {
+	    "ctx/language": "en",
+	    "ctx/territory": "SI",
+	    "ctx/time": datum,
+	    "vital_signs/height_length/any_event/body_height_length": visina,
+	    "vital_signs/body_weight/any_event/body_weight": teza,
+	   	"vital_signs/body_temperature/any_event/temperature|magnitude": temp,
+	    "vital_signs/body_temperature/any_event/temperature|unit": "°C",
+	    "vital_signs/blood_pressure/any_event/systolic": sTlak,
+	    "vital_signs/blood_pressure/any_event/diastolic": dTlak,
+	};
+	
+	var parametriZahteve = {
+	    ehrId: ehrId,
+	    templateId: 'Vital Signs',
+	    format: 'FLAT',
+	    committer: "Bob Marley"
+	};
+	
+	$.ajax({
+	    url: baseUrl + "/composition?" + $.param(parametriZahteve),
+	    type: 'POST',
+	    contentType: 'application/json',
+	    data: JSON.stringify(podatki),
+	    async: false // !! nastavimo da je sinhrono
+	});
+		
 }
 
 // TODO: Tukaj implementirate funkcionalnost, ki jo podpira vaša aplikacija
@@ -612,4 +763,54 @@ function copyToClipboard(elem) {
         target.textContent = "";
     }
     return succeed;
+}
+
+
+
+var map;
+var service;
+var infowindow;
+
+function initialize() {
+
+  var ljubljana = new google.maps.LatLng(46.056947,14.505751);
+
+  map = new google.maps.Map(document.getElementById('map'), {
+      center: ljubljana,
+      zoom: 15
+    });
+
+  var request = {
+    location: ljubljana,
+    radius: '5000',
+    types: ['pharmacy']
+  };
+
+	infowindow = new google.maps.InfoWindow();
+
+  service = new google.maps.places.PlacesService(map);
+  service.nearbySearch(request, callback);
+}
+
+function createMarker(place) {
+  var placeLoc = place.geometry.location;
+  var marker = new google.maps.Marker({
+    map: map,
+    position: place.geometry.location
+  });
+
+  google.maps.event.addListener(marker, 'click', function() {
+    infowindow.setContent(place.name);
+    infowindow.open(map, this);
+  });
+}
+
+
+function callback(results, status) {
+  if (status == google.maps.places.PlacesServiceStatus.OK) {
+    for (var i = 0; i < results.length; i++) {
+      var place = results[i];
+      createMarker(results[i]);
+    }
+  }
 }
