@@ -765,52 +765,90 @@ function copyToClipboard(elem) {
     return succeed;
 }
 
+//---------------------------
 
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else { 
+        document.getElementById("geo").innerHTML = "Geolocation is not supported by this browser.";
+    }
+}
+
+function showPosition(position) {
+	//console.log(position.coords.latitude);
+	//console.log(position.coords.longitude);
+	
+	var myLatlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+	map.panTo(myLatlng);
+	
+	var request = {
+		location: myLatlng,
+		radius: '10000',
+		types: ['pharmacy']
+	};
+	
+	infowindow = new google.maps.InfoWindow();
+	
+	service = new google.maps.places.PlacesService(map);
+	service.nearbySearch(request, callback);
+	
+}
+
+
+function klikNaGumbLokacija() {
+	
+	console.log("LOKACIJA");
+	
+	getLocation();
+	
+}
+
+//---------------------------
 
 var map;
 var service;
 var infowindow;
 
-function initialize() {
-
-  var ljubljana = new google.maps.LatLng(46.056947,14.505751);
-
-  map = new google.maps.Map(document.getElementById('map'), {
-      center: ljubljana,
-      zoom: 15
-    });
-
-  var request = {
-    location: ljubljana,
-    radius: '5000',
-    types: ['pharmacy']
-  };
-
+function initialize(init) {
+	var ljubljana = new google.maps.LatLng(46.056947,14.505751);
+	
+	map = new google.maps.Map(document.getElementById(init), {
+		center: ljubljana,
+		zoom: 15
+	});
+	
+	var request = {
+		location: ljubljana,
+		radius: '10000',
+		types: ['pharmacy']
+	};
+	
 	infowindow = new google.maps.InfoWindow();
-
-  service = new google.maps.places.PlacesService(map);
-  service.nearbySearch(request, callback);
+	
+	service = new google.maps.places.PlacesService(map);
+	service.nearbySearch(request, callback);
 }
 
 function createMarker(place) {
-  var placeLoc = place.geometry.location;
-  var marker = new google.maps.Marker({
-    map: map,
-    position: place.geometry.location
-  });
+	var placeLoc = place.geometry.location;
+	var marker = new google.maps.Marker({
+		map: map,
+		position: place.geometry.location
+	});
 
-  google.maps.event.addListener(marker, 'click', function() {
-    infowindow.setContent(place.name);
-    infowindow.open(map, this);
-  });
+	google.maps.event.addListener(marker, 'click', function() {
+		infowindow.setContent(place.name);
+    	infowindow.open(map, this);
+	});
 }
 
 
 function callback(results, status) {
-  if (status == google.maps.places.PlacesServiceStatus.OK) {
-    for (var i = 0; i < results.length; i++) {
-      var place = results[i];
-      createMarker(results[i]);
-    }
-  }
+	if (status == google.maps.places.PlacesServiceStatus.OK) {
+		for (var i = 0; i < results.length; i++) {
+			var place = results[i];
+			createMarker(results[i]);
+		}
+	}
 }
