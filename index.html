@@ -14,7 +14,6 @@
   <script src="knjiznice/js/bootstrap.min.js"></script>
   <script src="knjiznice/js/koda.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.min.js"></script>
-  
   <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD345rSEDgmGRPP-lNNCJMYgjozAyLreSA&libraries=places"></script>
 </head>
 <body onload="initialize('map')">
@@ -51,7 +50,7 @@
 
           <div class="well" style="background-image: url('./ambulance.png'); background-repeat: no-repeat; backgorund-size: cover;">
             <h1><a href="https://sl.wikipedia.org/wiki/Zdravje" target="_blank">Zdravstvena ordinacija</a></h1>
-            <p>Kratek opis aplikacije</p>
+            <p>Splošna spletna zdravstvena dejavnost</p>
           </div>
       </div>
     </div>
@@ -305,12 +304,21 @@
           <div class="panel panel-info">
             <div class="panel-heading">
               <div class="row">
-                  <div class="col-lg-8 col-md-6 col-xs-6">
+                  <div class="col-lg-5 col-md-5 col-xs-5">
                       <strong>Poizvedovanje z EHR ID po zapisih</strong>
                   </div>
+                  
+                  <div class="col-lg-3 col-md-3 col-xs-3">
+                    <select onchange="klikNaDropMenu()" id="dropMenu">
+                      <option>Najprej je potrebno generiranje podatkov.</option>
+                      
+                    </select>
+                  </div>
+                  
                   <div class="col-lg-4 col-md-6 col-xs-6 text-right">
                       <input type="button" onclick="klikNaGumbPoisciZapis()" id="Poizvedba" class="btn btn-primary btn-xs" value="Poišči zapis in vizualiziraj" />
                   </div>
+                  
               </div>
             </div>
             <div class="panel-body">
@@ -395,6 +403,9 @@
         </div>
     </div>
 
+    <div class="well autor text-center">
+      <strong>©2016</strong> <span class="detail">Matej Kristan<font size="4">👊</font></span>
+    </div>
 
   </div>
   <!-- KONEC: Vsebina aplikacije -->

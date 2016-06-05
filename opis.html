@@ -41,44 +41,93 @@
       <div class="col-lg-12 text-center">
         <div class="panel panel-default">
           <div class="panel-heading">
-            <h3 class="panel-title">Opis ideje, ki jo aplikacija podpira</h3>
+            <h3 class="panel-title"><strong>Opis ideje, ki jo aplikacija podpira</strong></h3>
           </div>
           <div class="panel-body">
             <!-- ZAČETEK: Opis ideje, ki jo aplikacija podpira -->
-            <p><strong>TO-DO</strong>: Na tem mestu je potrebno dodati <strong>osnovni opis ideje rešitve</strong> (kakšen je osnovni SCENARIJ UPORABE, KDO je ciljna publika, za kakšen NAMEN se aplikacija uporablja).</p><p class="text-muted">Opis naj ne bo daljši od 200 besed.</p>
             
-            Aplikacija je namenjena vsemu medicinskemu osebju, in pacientom da pregledujejo svoje vitalne telesne znake. Primer uporabe bi bil pregled pacienta v zdravstveni ordinaciji in beleženje njegovih meritev.
+            Aplikacija je namenjena <strong>medicinskemu osebju</strong>, in <strong>pacientom</strong>, da pregledujejo svoje vitalne telesne znake.<br> Primer uporabe bi bil pregled pacienta v zdravstveni ordinaciji in beleženje njegovih meritev v EHRscape.<br>
+            Če pacient dobi zdravila na recept si lahko na spletni strani poišče najbližjo lekarno.<br><strong>Ciljna publika:</strong> Medicinsko osebje, ki prisega na preprost vmesnik in vsi ljudje, ki bi radi hranili svoje vitalne telesne znake v zaupanju vrednem okolju.
             
             <!-- KONEC: Opis ideje, ki jo aplikacija podpira -->
           </div>
         </div>
         <div class="panel panel-default">
           <div class="panel-heading">
-            <h3 class="panel-title">Uporabljeni zunanji viri podatkov</h3>
+            <h3 class="panel-title"><strong>Uporabljeni zunanji viri podatkov</strong></h3>
           </div>
           <div class="panel-body">
             <!-- ZAČETEK: Uporabljeni zunanji viri podatkov -->
-            <p><strong>TO-DO</strong>: Na tem mestu je navesti zunanji vir podatkov (URL naslov), na kakšen način ste ga uporabili (neposredni API klic, uvožena statična datoteka ipd.) in kaj je bil namen uporabe (kako se vključuje v osnovno idejo aplikacije).</p>
+            <div class="row">
+              V nalogo sem vključil Google maps in Google maps geolocation API, oba sem uporabljal preko njunih API-jev.
+              <br>Google maps API sem uporabil za prikaz zemljevida in lekarn v radiju 10 kilometrov.
+              <br>Google maps location API pa sem uporabil za pridobivanje geo. lokacije ob kliknu na gumb "Geo lokacija" in postavitev zemljevida na to lokacijo.
+            </div>
+            
+            <div class="row">
+              <br>
+            </div>
+            
+            <div class="row">
+              <div class="col-lg-12">
+                <table class="table" width="100%;">
+                  <tbody>
+                    <tr>
+                      <th><strong>Zunanji vir:</strong></th>
+                      <th><strong>URL:</strong></th>
+                    </tr>
+                  </tbody>
+                  <tbody>
+                    <tr>
+                      <td class="data">Google maps API</td>
+                      <td class="data"><a href="https://developers.google.com/maps/documentation/javascript/" target="_blank">https://developers.google.com/maps/documentation/javascript/</a></td>
+                    </tr>
+                    <tr>
+                      <td class="data">Google maps geolocation API</td>
+                      <td class="data"><a target="_blank" href="https://developers.google.com/maps/documentation/geolocation/intro#overview">https://developers.google.com/maps/documentation/geolocation/intro#overview</a></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            
             <!-- KONEC: Uporabljeni zunanji viri podatkov -->
           </div>
         </div>
         <div class="panel panel-default">
           <div class="panel-heading">
-            <h3 class="panel-title">Master/detail načrtovalski vzorec</h3>
+            <h3 class="panel-title"><strong>Master/detail načrtovalski vzorec</strong></h3>
           </div>
           <div class="panel-body">
             <!-- ZAČETEK: Master/detail načrtovalski vzorec -->
-            <p><strong>TO-DO</strong>: Na tem mestu morate navesti uporabljen master/detail načrtovalski vzorec in na kakšen način ga nameravate uporabiti.</p>
+            
+            <div class="row">
+              Master/detail sem naredil pri vizualizaciji podatkov v graf, kjer se ob prehodu z miško na meritev na grafu pojavi oblaček z podatki o meritvi in času opravljene meritve.
+            </div>
+            
+            <div class="row"><br></div>
+            
+            <div class="row">
+              <img src="MasterD1.png" width="48%" height="48%"></img>
+              <img src="MasterD2.png" width="48%" height = "48%"></img>
+            </div>
+            
+            
+            
+            
             <!-- KONEC: Master/detail načrtovalski vzorec -->
           </div>
         </div>
         <div class="panel panel-default">
           <div class="panel-heading">
-            <h3 class="panel-title">Uporabljena tehnika za vizualizacijo podatkov</h3>
+            <h3 class="panel-title"><strong>Uporabljena tehnika za vizualizacijo podatkov</strong></h3>
           </div>
           <div class="panel-body">
             <!-- ZAČETEK: Uporabljeni zunanji viri podatkov -->
-            <p><strong>TO-DO</strong>: Na tem mestu je potrebno navesti uporabljeno tehniko vizualizacije podatkov (za pomoč lahko uporabite primer iz <a href="https://github.com/mbostock/d3/wiki/Gallery" target="_blank">D3.js galerije</a>) in zakaj je bila ta tehnika izbrana.</p>
+
+            Za vizualizacijo podatkov sem uporabil <strong>Chart.js</strong>, ker se mi je zdel vizualno lep in preprost za uporabo.
+            <br>Uporabil sem Chart.js line graf.
+            
             <!-- KONEC: Uporabljeni zunanji viri podatkov -->
           </div>
         </div>

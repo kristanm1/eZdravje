@@ -408,18 +408,15 @@ function narisi() {
 	
 	var labels = [];
 	var values = [];
-	for (var i = 0; i < data_values.length; i++)
-	{
+	for (var i = 0; i < data_values.length; i++) {
 		labels.push(time_values.eq(i).html());
 		values.push(data_values.eq(i).html());
 	}
 	
 	var selected = "Ni izbrane meritve!";
 	var items = $("#formRadio input[type='radio']");
-	for (var i in items)
-	{
-		if ($(items).eq(i).is(":checked"))
-		{
+	for (var i in items) {
+		if ($(items).eq(i).is(":checked")) {
 			selected = $(items).eq(i).parent().text();
 			break;
 		}
@@ -434,6 +431,12 @@ function narisi() {
 	chart.update();
 }
 
+function klikNaDropMenu() {
+	console.log("KLIK!")
+	console.log(document.getElementById("dropMenu").value);
+	document.getElementById("inEHRID3").value = document.getElementById("dropMenu").value;
+}
+
 function klikNaGumbGeneriraj() {
 	generirajPaciente("1");
 	generirajPaciente("2");
@@ -442,8 +445,12 @@ function klikNaGumbGeneriraj() {
 	setTimeout(function() {
 		document.getElementById("error7").innerHTML = "Usprešno generiranje pacientov!";
 		document.getElementById("error7").style.color = "green";
-	}, 1000);
-	
+		
+		var menu = document.getElementById("dropMenu");
+		menu.innerHTML = "<option>"+document.getElementById("auto1").innerHTML+"</option>";
+		menu.innerHTML += "<option>"+document.getElementById("auto2").innerHTML+"</option>";
+		menu.innerHTML += "<option>"+document.getElementById("auto3").innerHTML+"</option>";
+	}, 1850);
 }
 
 
@@ -820,7 +827,7 @@ function initialize(init) {
 	
 	var request = {
 		location: ljubljana,
-		radius: '10000',
+		radius: '35000',
 		types: ['pharmacy']
 	};
 	
